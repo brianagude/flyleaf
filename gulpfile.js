@@ -11,16 +11,13 @@ gulp.task('sass', function(){
   return gulp.src('src/css/global.scss')
     .pipe(sourcemaps.init())
     .pipe(sass())
-    .pipe(cleanCss({
-        compatibility: 'ie8'
-      }))
+    .pipe(cleanCss({compatibility: 'ie8'}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'))
     .pipe(browserSync.stream())
 })
 
 gulp.task('html', function(){
-  // grab any html and copy & paste it into distr
   return gulp.src('src/*.html')
   .pipe(gulp.dest('dist'))
 })
@@ -38,10 +35,9 @@ gulp.task('images', function(){
 
 gulp.task('watch', function(){
   browserSync.init({
-    server: {
-      baseDir: 'dist'
-    }
+    server: {baseDir: 'dist'}
   })
+
   gulp.watch('src/*.html', ['html']).on('change', browserSync.reload)
   gulp.watch('src/css/global.scss', ['sass'])
   gulp.watch('src/fonts/*', ['fonts'])
