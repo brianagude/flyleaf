@@ -33,6 +33,12 @@ gulp.task('images', function(){
   .pipe(gulp.dest('dist/img'))
 })
 
+gulp.task('java', function(){
+  return gulp.src('src/js/*.js')
+  .pipe(gulp.dest('dist/js'))
+  .pipe(browserSync.stream())
+})
+
 gulp.task('watch', function(){
   browserSync.init({
     server: {baseDir: 'dist'}
@@ -40,8 +46,9 @@ gulp.task('watch', function(){
 
   gulp.watch('src/*.html', ['html']).on('change', browserSync.reload)
   gulp.watch('src/css/global.scss', ['sass'])
+  gulp.watch('src/js/*.js', ['java'])
   gulp.watch('src/fonts/*', ['fonts'])
   gulp.watch('src/img/*', ['images'])
 })
 
-gulp.task('default', ['html', 'sass', 'fonts', 'images', 'watch']);
+gulp.task('default', ['html', 'sass', 'java', 'fonts', 'images', 'watch']);
